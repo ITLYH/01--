@@ -1,0 +1,14 @@
+jsx/ajax提交成功后采用以下方式跳转：
+1、本页面跳转:"window.location.href"、"location.href" 
+2、上一层页面跳转:"parent.location.href"
+3、最外层的页面跳转:"top.location.href"
+举例说明：
+如果A,B,C,D都是jsp，D是C的iframe，C是B的iframe，B是A的iframe，如果D中js这样写
+"window.location.href"、"location.href"：D页面跳转
+"parent.location.href"：C页面跳转
+"top.location.href"：A页面跳转
+如果D页面中有form的话,
+<form>: form提交后D页面跳转
+<form target="_blank">: form提交后弹出新页面
+<form target="_parent">: form提交后C页面跳转
+<form target="_top"> : form提交后A页面跳转

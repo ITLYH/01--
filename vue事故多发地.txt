@@ -1,0 +1,45 @@
+1.除了根目录组件名是App外，其他的自定义组件名应该是多个单词。（暴露是否新手的常态）
+在插件、混入等扩展中始终为自定义的私有属性使用 $_ 前缀。并附带一个命名空间以回避和其它作者的冲突 (比如 $_yourPluginName_)。。
+
+
+2.组件data必须是一个函数，vue组件中data值不能为对象，因为对象是引用类型，组件可能会被多个实例同时引用。如果data值为对象，将导致多个实例共享一个对象，其中一个组件改变data属性值，其它实例也会受到影响。
+
+
+3.Prop 定义应该尽量详细，至少需要指定其类型。（逼格会高）
+Vue.component('example', {
+ props: {
+  // 基础类型检测 （`null` 意思是任何类型都可以）
+  propA: Number,
+  // 多种类型
+  propB: [String, Number],
+  // 必传且是字符串
+  propC: {
+   type: String,
+   required: true
+  },
+  // 数字，有默认值
+  propD: {
+   type: Number,
+   default: 100
+  },
+  // 数组／对象的默认值应当由一个工厂函数返回
+  propE: {
+   type: Object,
+   default: function () {
+    return { message: 'hello' }
+   }
+  },
+  // 自定义验证函数
+  propF: {
+   validator: function (value) {
+    return value > 10
+   }
+  }
+ }
+})
+
+
+4.永远不要把 v-if 和 v-for 同时用在同一个元素上。
+为了过滤一个列表中的项目--使用计算属性过滤掉不需要元素
+为了避免渲染本应该被隐藏的列表--可以将v-if移动到外层容器上
+
